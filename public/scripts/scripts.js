@@ -1,9 +1,27 @@
 const generatePalette = () => {
-  clearPalette()
+  const colorPalette = []
   for (let i = 0; i < 5; i++) {
     let color = getRandomColor()
+    
+    colorPalette.push({color, lock: false})
     renderColor(color)
   }
+  toSto(colorPalette)
+}
+
+const updatePalette = () => {
+  clearPalette()
+  const colorPalette = fromSto()
+  
+  const newPalette = colorPalette.map(color => {
+    if (color.lock) {
+      return color
+    } else {
+      return { color: getRandomColor(), lock: false }
+    }
+  })
+
+  newPalette.map(color => renderColor(color.color))
 }
 
 const renderColor = color => {
@@ -13,6 +31,7 @@ const renderColor = color => {
   colorDiv.setAttribute("id", color)
   colorDiv.setAttribute("style", `background-color: ${color}`)
   colorDiv.innerHTML = `
+    <button>LOCK</button>
     <h3>${color}</h3>
   `
   colorsWrap.appendChild(colorDiv)
@@ -27,6 +46,14 @@ const clearPalette = () => {
   while(colorsWrap.hasChildNodes()) {
     colorsWrap.removeChild(colorsWrap.lastChild)
   }
+}
+
+const toSto = colorPalette => {
+  localStorage.setItem("colorPalette", JSON.stringify(colorPalette)) 
+}
+
+const fromSto = () => {
+  return JSON.parse(localStorage.getItem("colorPalette"))
 }
 
 const addPalette = event => {
