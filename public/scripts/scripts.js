@@ -30,10 +30,27 @@ const renderColor = color => {
   colorDiv.setAttribute("class", "color-card")
   colorDiv.setAttribute("style", `background-color: ${color}`)
   colorDiv.innerHTML = `
-    <button>LOCK</button>
+    <button
+      onclick="lockColor()"
+      class="color-lock-btn"
+    >LOCK</button>
     <h3>${color}</h3>
   `
   colorsWrap.appendChild(colorDiv)
+}
+
+const lockColor = id => {
+  const colorPalette = fromSto()
+  console.log(colorPalette)
+  //const newPalette = colorPalette.map(color => {
+  // if (color.color === id) {
+  //  return {...color, lock: !color.lock}
+  //} else {
+  //  return color
+  //}
+  //})
+
+  //toSto(newPalette)
 }
 
 const getRandomColor = () => {
