@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Palette Picker</title>
 </head>
@@ -17,7 +19,7 @@
          class="new-palette"
          type="button"
          onclick="generatePalette()"
-         >Generate New Palette</button>
+         >Generate New Palette!</button>
        <form 
          class="save-palette-form"
          onsubmit="addPalette(event)">
@@ -34,10 +36,10 @@
   </section>
 
   <section class="projects-section">
+    <h3>Create A New Project:</h3>
     <form
       class="save-project-form"
       onsubmit="addProject(event)" >
-      <h3>Create A New Project:</h3>
       <input 
         class="project-input" 
         type="text" 
