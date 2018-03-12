@@ -1,4 +1,5 @@
 const generatePalette = () => {
+  clearPalette()
   for (let i = 0; i < 5; i++) {
     let color = getRandomColor()
     renderColor(color)
@@ -11,11 +12,21 @@ const renderColor = color => {
   colorDiv.setAttribute("class", "color-card")
   colorDiv.setAttribute("id", color)
   colorDiv.setAttribute("style", `background-color: ${color}`)
+  colorDiv.innerHTML = `
+    <h3>${color}</h3>
+  `
   colorsWrap.appendChild(colorDiv)
 }
 
 const getRandomColor = () => {
   return '#'+Math.random().toString(16).slice(-6) 
+}
+
+const clearPalette = () => {
+  const colorsWrap = document.querySelector(".colors-wrap")
+  while(colorsWrap.hasChildNodes()) {
+    colorsWrap.removeChild(colorsWrap.lastChild)
+  }
 }
 
 const addPalette = event => {
