@@ -28,7 +28,6 @@ const renderColor = color => {
   const colorsWrap = document.querySelector(".colors-wrap")
   const colorDiv = document.createElement("div")
   colorDiv.setAttribute("class", "color-card")
-  colorDiv.setAttribute("id", color)
   colorDiv.setAttribute("style", `background-color: ${color}`)
   colorDiv.innerHTML = `
     <button>LOCK</button>
