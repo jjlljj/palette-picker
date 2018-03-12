@@ -2,9 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <title>Palette Picker</title>
 </head>
 <body>
-  
+  <section class="palette-section">
+    <h1>Palette Picker</h1>
+    <div class="colors-wrap">
+    
+    </div>
+
+    <div class="input-wrap">
+       <button 
+         class="new-palette"
+         type="button"
+         onclick="generatePalette()"
+         >Generate New Palette</button>
+       <form 
+         class="save-palette-form"
+         onsubmit="addPalette(event)">
+          <select name="project">
+
+          </select>
+          <input 
+            class="palette-name-input"
+            type="text"
+            placeholder="Palette name" />
+          <button class="palette-submit" type="submit">Save Palette</button>
+       </form>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <form
+      class="save-project-form"
+      onsubmit="addProject(event)" >
+      <h3>Create A New Project:</h3>
+      <input 
+        class="project-input" 
+        type="text" 
+        placeholder="New project name"/>
+      <button class="project-submit" type="submit">Save Project</button>
+    </form>
+
+    <section className="projects-wrap">
+      
+    </section>
+    
+  </section>
+
+  <script src="scripts/scripts.js"></script>
 </body>
 </html>
