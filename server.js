@@ -28,10 +28,11 @@ app.get('/api/v1/projects', (request, response) => {
 app.post('/api/v1/projects', (request, response) => {
   const { project } = request.body
   const { projects } = app.locals
+  const id = Date.now()
 
   if (!app.locals.projects[project]) {
-    projects[project] = { palettes: [] }
-    response.status(201).json(project)
+    projects[project] = { id, name: project, palettes: [] }
+    response.status(201).json(projects[project])
   } else {
     response.status(400)
   }

@@ -32,7 +32,6 @@ const renderColor = color => {
   colorDiv.setAttribute("class", "color-card")
   colorDiv.setAttribute("style", `background-color: #${color.color}`)
 
-  console.log(color)
   colorDiv.innerHTML = `
     <button
       type="button" 
@@ -84,19 +83,32 @@ const fromSto = () => {
 
 const addPalette = event => {
   event.preventDefault()
-  const projectInput = document.querySelector('.project-input')
-
-  console.log('addPalette')
+  const projectSelect = document.querySelector(".project-select" )
+  const paletteNameInput = document.querySelector(".palette-name-input") 
+  console.log('addPalette', projectSelect.value)
 }
 
 const addProject = async event => {
   event.preventDefault()
   const projectInput = document.querySelector('.project-input')
 
-  console.log(projectInput.value)
+  const project = await addProjectFetch(projectInput.value)
+  renderProject(project)
+  addProjectOption(project)
+}
 
-  const proj = await addProjectFetch(projectInput.value)
-  console.log(proj)
+const renderProject = project => {
+  const projectsWrap = document.querySelector(".projects-wrap")
+  const newProject = document.createElement("article")
+  newProject.setAttribute("class", "project-card")
+  
+  newProject.innerHTML = `
+    <div>${project.name}</div>
+    <ul class="${project.id} project-palettes" >
+
+    </ul>
+  `
+  projectsWrap.appendChild(newProject)
 }
 
 const addProjectFetch = async project => {
@@ -114,6 +126,17 @@ const addProjectFetch = async project => {
   } catch (error) {
     console.log(error)
   }
+}
+
+const addProjectOption = project => {
+  const projectSelect = document.querySelector(".project-select")
+  const newOption = document.createElement("option")
+  newOption.setAttribute("value", project.id)
+
+  newOption.innerHTML = `
+    ${project.name}
+  `
+  projectSelect.appendChild(newOption)
 }
 
 document.onload = generatePalette()
