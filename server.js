@@ -19,7 +19,7 @@ app.get('/api/v1/projects', (request, response) => {
   const { projects } = app.locals
 
   if (projects) {
-    response.json(projects)
+    response.status(200).json(projects)
   } else {
     response.status(404)
   }

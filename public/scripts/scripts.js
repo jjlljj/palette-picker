@@ -9,6 +9,29 @@ const generatePalette = () => {
   toSto(colorPalette)
 }
 
+const loadProjects = async () => {
+  const projects = await loadProjectsFetch()
+  generatePalette()
+  
+  projects.map(project => {
+    renderProject(project)
+    project.palettes.map(palette => renderProjectPalette(palette))
+  })
+}
+
+const loadProjectsFetch = async() => {
+  try {
+    const projects = await fetch("/api/v1/projects", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+
+      return await projects.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const updatePalette = () => {
   clearPalette()
   const colorPalette = fromSto()
@@ -176,4 +199,4 @@ const addProjectOption = project => {
   projectSelect.appendChild(newOption)
 }
 
-document.onload = generatePalette()
+document.onload = loadProjects()
