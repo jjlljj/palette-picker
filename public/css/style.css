@@ -111,6 +111,17 @@ input {
   min-height: 200px;
 }
 
+.delete-btn {
+  border: none;
+  background: transparent;
+  color: #cccccc;
+  font-size: 20px;
+}
+
+.delete-btn:hover {
+  color: #ff1a1a;
+}
+
 .project-palettes li {
   display: flex;
   align-items: center;
