@@ -93,3 +93,15 @@ input {
   text-align: center;
 }
 
+.project-card {
+
+}
+
+.project-palettes li {
+  display: flex;
+}
+
+.small-palette-tile {
+  height: 40px;
+  width: 40px;
+}
