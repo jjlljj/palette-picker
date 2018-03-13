@@ -15,6 +15,7 @@ const loadProjects = async () => {
   
   projects.map(project => {
     renderProject(project)
+    addProjectOption(project)
     project.palettes.map(palette => renderProjectPalette(palette))
   })
 }
