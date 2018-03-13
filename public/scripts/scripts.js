@@ -89,11 +89,31 @@ const addPalette = event => {
   console.log('addPalette')
 }
 
-const addProject = event => {
+const addProject = async event => {
   event.preventDefault()
   const projectInput = document.querySelector('.project-input')
 
   console.log(projectInput.value)
+
+  const proj = await addProjectFetch(projectInput.value)
+  console.log(proj)
+}
+
+const addProjectFetch = async project => {
+  try {
+    const createProject = await fetch('/api/v1/projects', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({project})
+    })
+    if (createProject.status === 201) {
+      return await createProject.json() 
+    } else {
+      throw new Error('could not create project')
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 document.onload = generatePalette()
