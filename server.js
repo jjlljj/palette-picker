@@ -39,7 +39,7 @@ app.post('/api/v1/projects', (request, response) => {
   }
 })
 
-app.post('/api/v1/palettes/:id', (request, response) => {
+app.post('/api/v1/:id/palettes', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
 
@@ -48,6 +48,12 @@ app.post('/api/v1/palettes/:id', (request, response) => {
   console.log(project)
   project.palettes.push(newPalette)
   response.status(201).json(newPalette)
+})
+
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params
+
+  // delete palette from palettes table 
 })
 
 
