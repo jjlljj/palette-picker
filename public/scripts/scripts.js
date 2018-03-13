@@ -4,7 +4,7 @@ const generatePalette = () => {
     let color = getRandomColor()
     
     colorPalette.push({color, lock: false})
-    renderColor(color)
+    renderColor({color})
   }
   toSto(colorPalette)
 }
@@ -21,40 +21,50 @@ const updatePalette = () => {
     }
   })
 
-  newPalette.map(color => renderColor(color.color))
+  newPalette.map(color => renderColor(color))
+  toSto(newPalette)
 }
 
 const renderColor = color => {
   const colorsWrap = document.querySelector(".colors-wrap")
   const colorDiv = document.createElement("div")
+  const lockIcon = color.lock ? "fa-lock" : "fa-lock-open"
   colorDiv.setAttribute("class", "color-card")
-  colorDiv.setAttribute("style", `background-color: ${color}`)
+  colorDiv.setAttribute("style", `background-color: #${color.color}`)
+
+  console.log(color)
   colorDiv.innerHTML = `
     <button
-      onclick="lockColor()"
-      class="color-lock-btn"
-    >LOCK</button>
-    <h3>${color}</h3>
+      type="button" 
+      onclick="lockColor(event)"
+      name="${color.color}"
+      class="color-lock-btn fas ${lockIcon}"
+    ></button>
+    <h3>#${color.color}</h3>
   `
   colorsWrap.appendChild(colorDiv)
 }
 
-const lockColor = id => {
+const lockColor = event => {
+  event.preventDefault()
+  const id = event.target.name
   const colorPalette = fromSto()
-  console.log(colorPalette)
-  //const newPalette = colorPalette.map(color => {
-  // if (color.color === id) {
-  //  return {...color, lock: !color.lock}
-  //} else {
-  //  return color
-  //}
-  //})
+  
+  const newPalette = colorPalette.map(color => {
+    if (color.color === id) {
+      return {...color, lock: !color.lock}
+    } else {
+      return color
+    }
+  })
 
-  //toSto(newPalette)
+  clearPalette()
+  newPalette.map(color => renderColor(color))
+  toSto(newPalette)
 }
 
 const getRandomColor = () => {
-  return '#'+Math.random().toString(16).slice(-6) 
+  return Math.random().toString(16).slice(-6) 
 }
 
 const clearPalette = () => {
