@@ -39,16 +39,27 @@ app.post('/api/v1/projects', (request, response) => {
   }
 })
 
-app.post('/api/v1/projects/:id', (request, response) => {
+app.post('/api/v1/:id/palettes', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
 
   const project = app.locals.projects.find(project => project.id === parseInt(id))
   const newPalette = { palette, id: Date.now(), name, projectId }
-  console.log(project)
+
   project.palettes.push(newPalette)
   response.status(201).json(newPalette)
 })
+
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params
+
+  console.log(id)
+  app.locals.projects.map(project => {
+    project.palettes = project.palettes.filter(palette => palette.id != id)
+  })
+  // delete palette from palettes table 
+})
+
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} running on port ${app.get('port')}`)
