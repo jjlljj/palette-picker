@@ -140,6 +140,7 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
   const projectPalettes = document.querySelector(`.proj${projectId.toString()}`)  
   const newPalette = document.createElement('li')
   const colorHTML = palette.map(color =>  `<div class="small-palette-tile" style="background-color: #${color.color}"></div>`).join("")  
+  newPalette.setAttribute('class',`p${id}`)
 
   newPalette.innerHTML = `
     <h3>${name}</h3>
@@ -158,6 +159,21 @@ const deleteProjectPalette = event => {
   const id  = event.target.name
   console.log('delete ' + id)
   // delete palette from db based on palette id --> don't even need the project id!!
+  
+  deleteProjectPaletteFetch(id)
+  removeProjectPaletteRender(id)
+}
+
+const removeProjectPaletteRender = id => {
+  const palette = document.querySelector(`.p${id}`)
+  palette.parentNode.removeChild(palette)
+}
+
+const deleteProjectPaletteFetch = async id => {
+  fetch(`/api/v1/palettes/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  })
 }
 
 const addProject = async event => {

@@ -53,6 +53,10 @@ app.post('/api/v1/:id/palettes', (request, response) => {
 app.delete('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params
 
+  console.log(id)
+  app.locals.projects.map(project => {
+    project.palettes = project.palettes.filter(palette => palette.id != id)
+  })
   // delete palette from palettes table 
 })
 
