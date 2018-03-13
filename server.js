@@ -45,7 +45,7 @@ app.post('/api/v1/:id/palettes', (request, response) => {
 
   const project = app.locals.projects.find(project => project.id === parseInt(id))
   const newPalette = { palette, id: Date.now(), name, projectId }
-  console.log(project)
+
   project.palettes.push(newPalette)
   response.status(201).json(newPalette)
 })
