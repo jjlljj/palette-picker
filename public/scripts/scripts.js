@@ -81,11 +81,32 @@ const fromSto = () => {
   return JSON.parse(localStorage.getItem("colorPalette"))
 }
 
-const addPalette = event => {
+const addPalette = async event => {
   event.preventDefault()
   const projectSelect = document.querySelector(".project-select" )
   const paletteNameInput = document.querySelector(".palette-name-input") 
-  console.log('addPalette', projectSelect.value)
+  const palette = fromSto().map(colorObj => ({...colorObj, lock: false})) 
+
+  const newPalette = { palette, name: paletteNameInput.value }
+  const added = await addPaletteFetch(newPalette, projectSelect.value)
+  console.log(added)
+}
+
+const addPaletteFetch = async (newPalette, id) => {
+  try {
+    const createPalette = await fetch(`/api/v1/projects/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPalette)
+    })
+    if (createPalette.status === 201) {
+      return await createPalette.json() 
+    } else {
+      throw new Error('could not create palette')
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const addProject = async event => {
