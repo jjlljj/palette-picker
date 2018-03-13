@@ -85,9 +85,11 @@ const addPalette = async event => {
   event.preventDefault()
   const projectSelect = document.querySelector(".project-select" )
   const paletteNameInput = document.querySelector(".palette-name-input") 
+
   const palette = fromSto().map(colorObj => ({...colorObj, lock: false})) 
   const projectId = projectSelect.value
   const newPalette = { palette, name: paletteNameInput.value, projectId }
+
   const added = await addPaletteFetch(newPalette, projectId)
 
   renderProjectPalette(added)
@@ -138,7 +140,7 @@ const renderProject = project => {
   newProject.setAttribute("class", "project-card")
   
   newProject.innerHTML = `
-    <div>${project.name}</div>
+    <div class="project-title">${project.name}</div>
     <ul class="proj${project.id} project-palettes" >
 
     </ul>
