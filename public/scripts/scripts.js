@@ -121,7 +121,7 @@ const addPalette = async event => {
 
 const addPaletteFetch = async (newPalette, id) => {
   try {
-    const createPalette = await fetch(`/api/v1/projects/${id}`, {
+    const createPalette = await fetch(`/api/v1/palettes/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPalette)

@@ -39,7 +39,7 @@ app.post('/api/v1/projects', (request, response) => {
   }
 })
 
-app.post('/api/v1/projects/:id', (request, response) => {
+app.post('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
 
@@ -49,6 +49,7 @@ app.post('/api/v1/projects/:id', (request, response) => {
   project.palettes.push(newPalette)
   response.status(201).json(newPalette)
 })
+
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} running on port ${app.get('port')}`)
