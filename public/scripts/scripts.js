@@ -142,6 +142,7 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
   const colorHTML = palette.map(color =>  `<div class="small-palette-tile" style="background-color: #${color.color}"></div>`).join("")  
   newPalette.setAttribute('class',`p${id}`)
 
+  // for clickable palette display, need header to be a button with onclick, fires function passed to palette id, gets the palette based on id from be && renders in top palette 
   newPalette.innerHTML = `
     <h3>${name}</h3>
     ${colorHTML} 
@@ -152,7 +153,6 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
       ></button>
   `
   projectPalettes.appendChild(newPalette)
-
 }
 
 const deleteProjectPalette = event => {
