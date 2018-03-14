@@ -51,6 +51,11 @@ h1 {
   opacity: .5;
 }
 
+.color-lock-btn:active {
+  color: #262626;
+  opacity: .8;
+}
+
 .fa-lock {
   opacity: .8
 }
@@ -92,30 +97,56 @@ button,
 input {
   border-radius: 0px;
   box-sizing: border-box;
-  height: 30px;
-  margin: 10px;
+  height: 40px;
 }
 
-.save-palette-form select {
+.select-wrap {
+  background: #f2f2f2;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding-left: 20px;
+}
+
+.project-select {
   border: none;
-  width: 120px;
-}
-
-.palette-name-input,
-.project-input {
-  padding-left: 10px;
+  background: transparent;
   width: 140px;
+  -webkit-border-radius: 0px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
 }
 
-.palette-submit,
-.project-submit {
+.palette-name-input {
+  background: #f2f2f2;
+  border-style: none;
+  padding-left: 20px;
+  width: 180px;
+}
+
+.palette-submit {
   background: #f2f2f2;
   border: none;
-  width: 120px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  width: 160px;
 }
 
 .projects-section {
 
+}
+
+
+.project-input {
+  padding-left: 10px;
+  margin: 10px;
+  width: 140px;
+}
+
+.project-submit {
+  background: #f2f2f2;
+  border: none;
+  margin: 10px;
+  width: 120px;
 }
 
 .projects-section h3 {
@@ -146,6 +177,7 @@ input {
   background: transparent;
   color: #cccccc;
   font-size: 20px;
+  margin-left: 10px;
 }
 
 .delete-btn:hover {
