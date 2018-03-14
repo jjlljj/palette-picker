@@ -146,7 +146,7 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
     <h3>${name}</h3>
     ${colorHTML} 
     <button 
-      class="fas fa-minus-circle delete-btn"
+      class="fas fa-trash-alt delete-btn"
       name=${id}
       onclick=deleteProjectPalette(event)
       ></button>

@@ -27,16 +27,47 @@ h1 {
 }
 
 .color-card {
-  width: 140px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 200px;
+  justify-content: flex-end;
+  width: 140px;
 }
 
 .color-lock-btn {
   background: transparent;
   border: none;
-  color: black;
+  color: #f2f2f2; 
+  font-size: 20px;
   height: 40px;
+  margin: 5px;
+  opacity: .65;
   width: 40px;
+}
+
+.color-lock-btn:hover {
+  color: #333333;
+  opacity: .5;
+}
+
+.fa-lock {
+  opacity: .8
+}
+
+.color-card h3 {
+  color: #f2f2f2; 
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  opacity: .65;
+  text-transform: uppercase;
+}
+
+.color-card h3:hover {
+  color: #333333;
+  opacity: .5;
 }
 
 .new-palette {
@@ -98,7 +129,6 @@ input {
 }
 
 .project-title {
-  max-width: 140px;
   margin: 20px auto;
   font-size: 20px;
   font-weight: 700;
