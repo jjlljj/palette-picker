@@ -86,7 +86,9 @@ app.post('/api/v1/:id/palettes', (request, response) => {
 app.delete('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params
 
-  db('palettes').where('id', id).elect().del()
+  db('palettes').where('id', id).select()
+    .then( selected => console.log(selected))
+  //db('palettes').where('id', id).del()
   console.log(parseInt(id))
 })
 
