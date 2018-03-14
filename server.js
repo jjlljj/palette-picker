@@ -65,15 +65,14 @@ app.post('/api/v1/:id/palettes', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
 
+  // need to update the fetch with correct params to fix this mess, also should add required params handling
   const colorsWithKeys = palette.reduce( (acc, color, idx) => {
-
     let key = `color${idx}`
     return {...acc, [key]: color.color}
   },{})
 
   const newPalette = {...colorsWithKeys, name, project_id: projectId}
 
-  console.log(newPalette)
   db('palettes').insert(newPalette, 'id')
     .then(dbPalette => {
        response.status(201).json({ palette, name, id: dbPalette[0], projectId }) 
@@ -87,11 +86,8 @@ app.post('/api/v1/:id/palettes', (request, response) => {
 app.delete('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params
 
-  console.log(id)
-  app.locals.projects.map(project => {
-    project.palettes = project.palettes.filter(palette => palette.id != id)
-  })
-  // delete palette from palettes table 
+  db('palettes').where('id', id).elect().del()
+  console.log(parseInt(id))
 })
 
 
