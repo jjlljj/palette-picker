@@ -10,6 +10,10 @@ h1 {
   font-size: 42px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .palette-section {
   border-bottom: 1px solid #cccccc;
   margin: 20px;
@@ -122,7 +126,7 @@ input {
 .palette-name-input {
   background: #f2f2f2;
   border-style: none;
-  padding-left: 20px;
+  padding-left: 15px;
   width: 180px;
 }
 
@@ -138,6 +142,9 @@ input {
 
 }
 
+.save-project-form {
+  margin-top: 0;
+}
 
 .project-input {
   background: #f2f2f2;
@@ -160,6 +167,7 @@ input {
 
 .projects-section h3 {
   text-align: center;
+  margin: 20px auto 12px;
   width: 250px;
 }
 
