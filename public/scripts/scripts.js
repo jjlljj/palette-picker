@@ -52,7 +52,7 @@ const updatePalette = () => {
 const renderColor = color => {
   const colorsWrap = document.querySelector(".colors-wrap")
   const colorDiv = document.createElement("div")
-  const lockIcon = color.lock ? "fa-lock" : "fa-lock-open"
+  const lockIcon = color.lock ? "fa-lock" : "fa-unlock-alt"
   colorDiv.setAttribute("class", "color-card")
   colorDiv.setAttribute("style", `background-color: #${color.color}`)
 
