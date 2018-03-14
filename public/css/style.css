@@ -10,6 +10,10 @@ h1 {
   font-size: 42px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .palette-section {
   border-bottom: 1px solid #cccccc;
   margin: 20px;
