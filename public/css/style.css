@@ -176,7 +176,7 @@ input {
 
 .project-card {
   max-width: 500px;
-  min-width: 280px;
+  min-width: 400px;
   min-height: 200px;
 }
 
@@ -192,6 +192,11 @@ input {
   color: #ff1a1a;
 }
 
+.project-palettes {
+  margin: auto;
+  justify-content: center;
+}
+
 .project-palettes li {
   display: flex;
   align-items: center;
@@ -203,12 +208,15 @@ input {
   font-size: 16px;
   height: 22px;
   margin: 15px;
-  white-space: nowrap;
+  max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: auto;
+  white-space: nowrap;
 }
 
 .small-palette-tile {
   height: 40px;
+  min-width: 40px;
   width: 40px;
 }
