@@ -181,6 +181,7 @@ const addProject = async event => {
   const projectInput = document.querySelector('.project-input')
 
   const project = await addProjectFetch(projectInput.value)
+
   renderProject(project)
   addProjectOption(project)
 }
