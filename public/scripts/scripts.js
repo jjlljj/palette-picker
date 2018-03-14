@@ -182,6 +182,7 @@ const addProject = async event => {
 
   const project = await addProjectFetch(projectInput.value)
 
+  console.log(project)
   renderProject(project)
   addProjectOption(project)
 }
@@ -200,12 +201,13 @@ const renderProject = project => {
   projectsWrap.appendChild(newProject)
 }
 
-const addProjectFetch = async project => {
+const addProjectFetch = async name => {
+  console.log(name)
   try {
     const createProject = await fetch('/api/v1/projects', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({project})
+      body: JSON.stringify({project: { name }})
     })
     if (createProject.status === 201) {
       return await createProject.json() 

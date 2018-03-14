@@ -40,8 +40,8 @@ app.post('/api/v1/projects', (request, response) => {
   }
 
   db('projects').insert(project, 'id')
-    .then(project => {
-      response.status(201).json({ id: project[0], name: project[0].name })
+    .then(dbProject => {
+      response.status(201).json({ id: dbProject[0], name: project.name })
     })
     .catch(error => {
       response.status(500).json({ error })
