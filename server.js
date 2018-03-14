@@ -53,11 +53,23 @@ app.post('/api/v1/:id/palettes', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
 
-  const project = app.locals.projects.find(project => project.id === parseInt(id))
-  const newPalette = { palette, id: Date.now(), name, projectId }
+  const colorsWithKeys = palette.reduce( (acc, color, idx) => {
 
-  project.palettes.push(newPalette)
-  response.status(201).json(newPalette)
+    let key = `color${idx}`
+    return {...acc, [key]: color.color}
+  },{})
+
+  const newPalette = {...colorsWithKeys, name, project_id: projectId}
+
+  console.log(newPalette)
+  db('palettes').insert(newPalette, 'id')
+    .then(dbPalette => {
+       response.status(201).json({ palette, name, id: dbPalette[0], projectId }) 
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+
 })
 
 app.delete('/api/v1/palettes/:id', (request, response) => {

@@ -116,6 +116,7 @@ const addPalette = async event => {
 
   const added = await addPaletteFetch(newPalette, projectId)
 
+  console.log(added)
   renderProjectPalette(added)
 }
 
