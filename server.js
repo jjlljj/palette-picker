@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 
+const environment = process.env.NODE_ENV || 'development'
+const configuration = require('./knexfile')[environment]
+const db = require('knex')(configuration)
+
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Palette Picker'
 app.use(bodyParser.json())
@@ -17,26 +21,32 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/projects', (request, response) => {
   const { projects } = app.locals
+  
+  db('projects').select()
+    .then(papers => {
+      response.status(200).json(papers)
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
 
-  if (projects) {
-    response.status(200).json(projects)
-  } else {
-    response.status(404)
-  }
 })
 
 app.post('/api/v1/projects', (request, response) => {
   const { project } = request.body
-  const { projects } = app.locals
-  const id = Date.now()
 
-  if (app.locals.projects.every(storedProject => storedProject.name !== project)) {
-    const newProject =  { id, name: project, palettes: [] }
-    projects.push(newProject)
-    response.status(201).json(newProject)
-  } else {
-    response.status(400)
+  if (!project['name']) {
+    return response.status(422).send({ error: "Expected format: { name: <String>. You're missing a name property"})
   }
+
+  db('projects').insert(project, 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0], name: project[0].name })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+
 })
 
 app.post('/api/v1/:id/palettes', (request, response) => {
