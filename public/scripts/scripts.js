@@ -11,13 +11,24 @@ const generatePalette = () => {
 
 const loadProjects = async () => {
   const projects = await loadProjectsFetch()
+  const palettes = await loadPalettesFetch()
   generatePalette()
   
   projects.map(project => {
     renderProject(project)
     addProjectOption(project)
-    project.palettes.map(palette => renderProjectPalette(palette))
   })
+  
+  projects && palettes.map(palette => renderProjectPalette(cleanPalette(palette)))
+}
+
+const cleanPalette = ({ id, name, project_id, color0, color1, color2, color3, color4 })  => {
+  return {
+    id,
+    name,
+    projectId: project_id,
+    palette: [ { color: color0 }, { color:  color1 }, { color: color2 }, { color: color3 }, { color: color4 } ]
+  }
 }
 
 const loadProjectsFetch = async() => {
@@ -28,6 +39,19 @@ const loadProjectsFetch = async() => {
     })
 
       return await projects.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const loadPalettesFetch = async () => {
+  try {
+    const palettes = await fetch("/api/v1/palettes", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+
+    return await palettes.json()
   } catch (error) {
     console.log(error)
   }
