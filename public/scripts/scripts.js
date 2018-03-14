@@ -52,7 +52,7 @@ const updatePalette = () => {
 const renderColor = color => {
   const colorsWrap = document.querySelector(".colors-wrap")
   const colorDiv = document.createElement("div")
-  const lockIcon = color.lock ? "fa-lock" : "fa-lock-open"
+  const lockIcon = color.lock ? "fa-lock" : "fa-unlock-alt"
   colorDiv.setAttribute("class", "color-card")
   colorDiv.setAttribute("style", `background-color: #${color.color}`)
 
@@ -146,7 +146,7 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
     <h3>${name}</h3>
     ${colorHTML} 
     <button 
-      class="fas fa-minus-circle delete-btn"
+      class="fas fa-trash-alt delete-btn"
       name=${id}
       onclick=deleteProjectPalette(event)
       ></button>

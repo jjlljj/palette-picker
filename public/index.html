@@ -24,9 +24,12 @@
        <form 
          class="save-palette-form"
          onsubmit="addPalette(event)">
-          <select name="project" class="project-select">
+         <div class="select-wrap">
+            <select name="project" class="project-select">
+              <option default>Select Project</option>
 
-          </select>
+            </select>
+         </div>
           <input 
             class="palette-name-input"
             type="text"
