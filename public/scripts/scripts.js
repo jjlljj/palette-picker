@@ -140,7 +140,6 @@ const addPalette = async event => {
 
   const added = await addPaletteFetch(newPalette, projectId)
 
-  console.log(added)
   renderProjectPalette(added)
 }
 
@@ -177,13 +176,37 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
       onclick=deleteProjectPalette(event)
       ></button>
   `
+  newPalette.addEventListener('click', () => { renderPaletteToMain(id)})
   projectPalettes.appendChild(newPalette)
+}
+
+const renderPaletteToMain = async id => {
+  const { palette } = await fetchPalette(id)
+  
+  const newPalette = cleanPalette(palette[0]).palette
+
+  clearPalette()
+  newPalette.map(color => renderColor(color))
+  toSto(newPalette)
+}
+
+
+const fetchPalette = async id => {
+  try {
+    const palette = await fetch(`/api/v1/palettes/${id}`)
+
+    if (palette.status === 200) {
+      return await palette.json() 
+    } else {
+      throw new Error('could not get palette')
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const deleteProjectPalette = event => {
   const id  = event.target.name
-  console.log('delete ' + id)
-  // delete palette from db based on palette id --> don't even need the project id!!
   
   deleteProjectPaletteFetch(id)
   removeProjectPaletteRender(id)
@@ -207,7 +230,6 @@ const addProject = async event => {
 
   const project = await addProjectFetch(projectInput.value)
 
-  console.log(project)
   renderProject(project)
   addProjectOption(project)
 }
@@ -227,7 +249,6 @@ const renderProject = project => {
 }
 
 const addProjectFetch = async name => {
-  console.log(name)
   try {
     const createProject = await fetch('/api/v1/projects', {
       method: "POST",
