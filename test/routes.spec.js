@@ -22,6 +22,9 @@ describe('Client Routes', () => {
 
   beforeEach( done => {
     db.seed.run()
+      .then( () => {
+        done()
+    })
   })
 
   it('should return the homepage', () => {
