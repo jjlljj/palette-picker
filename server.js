@@ -30,7 +30,7 @@ app.post('/api/v1/projects', (request, response) => {
   const { project } = request.body
 
   if (!project['name']) {
-    return response.status(422).send({ error: "Expected format: { name: <String>. You're missing a name property"})
+    return response.status(422).send({ error: "Expected format: { name: <String> }. You're missing a name property"})
   }
 
   db('projects').insert(project, 'id')
@@ -72,6 +72,15 @@ app.post('/api/v1/:id/palettes', (request, response) => {
   const { palette, name, projectId } = request.body
 
   // need to update the fetch with correct params to fix this mess, also should add required params handling
+
+  for( let requiredParam of ['name', 'projectId', 'palette']) {
+   
+    if(!request.body[requiredParam]) {
+      return response.status(422)
+        .send({ error: `Expected format: { name: <String>, projectId: <Number>, palette: <Array> }. You're missing a "${requiredParam}" property.` })
+    }
+  }
+
   const colorsWithKeys = palette.reduce( (acc, color, idx) => {
     let key = `color${idx}`
     return {...acc, [key]: color.color}
