@@ -100,7 +100,9 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params
 
   db('palettes').where("id", id).del()
-    .then( deleted => console.log(deleted))
+    .then( deleted => {
+      response.status(204)
+    })
     .catch( error => { 
       response.status(500).json({ error })
     })
