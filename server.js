@@ -28,7 +28,6 @@ app.get('/api/v1/projects', (request, response) => {
 
 app.post('/api/v1/projects', (request, response) => {
   const { project } = request.body
-
   if (!project['name']) {
     return response.status(422).send({ error: "Expected format: { name: <String> }. You're missing a name property"})
   }
@@ -59,7 +58,6 @@ app.get('/api/v1/palettes/:id', (request, response) => {
 
   db('palettes').where("id", id).select()
     .then(palette => {
-      console.log(palette)
       response.status(200).json({ palette })
     })
     .catch(error => {
