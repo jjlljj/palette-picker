@@ -40,4 +40,44 @@ describe('Client Routes', () => {
       })
   })
 
+  it('should return 404 for page that does exist', () => {
+    return chai.request(server)
+      .get('/sad')
+      .then(response => {
+        response.should.have.status(404)
+      })
+      .catch(error => {
+        throw error
+      })
+  })
+
+})
+
+describe('API Routes', () => {
+  describe('GET /api/v1/projects', () => {
+    
+  })
+
+  describe('POST /api/v1/projects', () => {
+
+  })
+  
+
+  describe('GET /api/v1/palettes', () => {
+
+  })
+
+
+  describe('GET /api/v1/palettes/:id', () => {
+
+  })
+
+  describe('DELETE /api/v1/palettes/:id', () => {
+
+  })
+
+  describe('POST /api/v1/:id/palettes', () => {
+
+  })
+
 })

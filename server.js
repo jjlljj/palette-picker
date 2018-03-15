@@ -67,6 +67,18 @@ app.get('/api/v1/palettes/:id', (request, response) => {
     })
 })
 
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params
+
+  db('palettes').where("id", id).del()
+    .then( deleted => {
+      response.status(204)
+    })
+    .catch( error => { 
+      response.status(500).json({ error })
+    })
+})
+
 app.post('/api/v1/:id/palettes', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
@@ -95,19 +107,6 @@ app.post('/api/v1/:id/palettes', (request, response) => {
     })
 
 })
-
-app.delete('/api/v1/palettes/:id', (request, response) => {
-  const { id } = request.params
-
-  db('palettes').where("id", id).del()
-    .then( deleted => {
-      response.status(204)
-    })
-    .catch( error => { 
-      response.status(500).json({ error })
-    })
-})
-
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} running on port ${app.get('port')}`)
