@@ -103,6 +103,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
     .then( deleted => console.log(deleted))
     .catch( error => { 
       response.status(500).json({ error })
+    })
 })
 
 
