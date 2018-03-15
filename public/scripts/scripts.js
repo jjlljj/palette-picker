@@ -183,7 +183,7 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
 
 const clearNoProjects = id => {
   const projectPalettes = document.querySelector(`.proj${id.toString()}`)  
-  const noProjects = projectPalettes.querySelector('.no-projects')
+  const noProjects = projectPalettes.querySelector('.no-palettes')
 
   if ( noProjects ) projectPalettes.removeChild(noProjects)
 }
@@ -222,7 +222,21 @@ const deleteProjectPalette = event => {
 
 const removeProjectPaletteRender = id => {
   const palette = document.querySelector(`.p${id}`)
-  palette.parentNode.removeChild(palette)
+  const parent = palette.parentNode
+
+  parent.removeChild(palette)
+  checkProjectEmpty(parent) 
+}
+
+const checkProjectEmpty = node => {
+  console.log(node)
+  if (!node.children.length) {
+    const noProjects = document.createElement('div')
+    noProjects.setAttribute("class", "no-palettes")
+    noProjects.innerHTML = "No palettes added"
+
+    node.appendChild(noProjects)
+  }
 }
 
 const deleteProjectPaletteFetch = async id => {
@@ -250,7 +264,7 @@ const renderProject = project => {
   newProject.innerHTML = `
     <div class="project-title">${project.name}</div>
     <ul class="proj${project.id} project-palettes" >
-      <div class="no-projects">No projects added</div>
+      <div class="no-palettes">No palettes added</div>
 
     </ul>
   `

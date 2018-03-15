@@ -190,7 +190,8 @@ input {
   min-height: 200px;
 }
 
-.no-projects {
+.no-palettes {
+  margin-top: 40px;
   text-align: center;
 }
 
