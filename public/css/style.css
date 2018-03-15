@@ -190,6 +190,11 @@ input {
   min-height: 200px;
 }
 
+.no-palettes {
+  margin-top: 40px;
+  text-align: center;
+}
+
 .delete-btn {
   border: none;
   background: transparent;
@@ -212,6 +217,10 @@ input {
   align-items: center;
   justify-content: flex-end;
   margin: 20px;
+}
+
+.project-palettes li:hover {
+  cursor: pointer;
 }
 
 .project-palettes h3 {
