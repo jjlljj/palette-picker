@@ -214,6 +214,10 @@ input {
   margin: 20px;
 }
 
+.project-palettes li:hover {
+  cursor: pointer;
+}
+
 .project-palettes h3 {
   font-size: 16px;
   height: 22px;
