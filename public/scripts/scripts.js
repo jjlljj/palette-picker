@@ -175,8 +175,17 @@ const renderProjectPalette = ({ id, name , palette, projectId }) => {
       onclick=deleteProjectPalette(event)
       ></button>
   `
+
+  clearNoProjects(projectId)
   newPalette.addEventListener('click', () => { renderPaletteToMain(id)})
   projectPalettes.appendChild(newPalette)
+}
+
+const clearNoProjects = id => {
+  const projectPalettes = document.querySelector(`.proj${id.toString()}`)  
+  const noProjects = projectPalettes.querySelector('.no-projects')
+
+  if ( noProjects ) projectPalettes.removeChild(noProjects)
 }
 
 const renderPaletteToMain = async id => {
@@ -241,6 +250,7 @@ const renderProject = project => {
   newProject.innerHTML = `
     <div class="project-title">${project.name}</div>
     <ul class="proj${project.id} project-palettes" >
+      <div class="no-projects">No projects added</div>
 
     </ul>
   `

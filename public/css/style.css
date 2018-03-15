@@ -190,6 +190,10 @@ input {
   min-height: 200px;
 }
 
+.no-projects {
+  text-align: center;
+}
+
 .delete-btn {
   border: none;
   background: transparent;
