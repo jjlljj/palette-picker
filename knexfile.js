@@ -8,5 +8,13 @@ module.exports = {
       directory: './db/migrations'
     },
     useNullAsDefault: true
+  },
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/palette_picker_testing',
+    migrations: {
+      directory: './db/migrations'
+    },
+    useNullAsDefault
   }
 };
