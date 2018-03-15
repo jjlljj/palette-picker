@@ -71,8 +71,6 @@ app.post('/api/v1/:id/palettes', (request, response) => {
   const { id } = request.params 
   const { palette, name, projectId } = request.body
 
-  // need to update the fetch with correct params to fix this mess, also should add required params handling
-
   for( let requiredParam of ['name', 'projectId', 'palette']) {
    
     if(!request.body[requiredParam]) {
