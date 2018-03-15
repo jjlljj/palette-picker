@@ -11,12 +11,7 @@ app.locals.title = 'Palette Picker'
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
-app.locals.projects = [
-
-]
-
 app.get('/', (request, response) => {
-  
 })
 
 app.get('/api/v1/projects', (request, response) => {
@@ -29,7 +24,6 @@ app.get('/api/v1/projects', (request, response) => {
     .catch(error => {
       response.status(500).json({ error })
     })
-
 })
 
 app.post('/api/v1/projects', (request, response) => {
@@ -46,7 +40,6 @@ app.post('/api/v1/projects', (request, response) => {
     .catch(error => {
       response.status(500).json({ error })
     })
-
 })
 
 
@@ -58,6 +51,19 @@ app.get('/api/v1/palettes', (request, response) => {
     })
     .catch(error => {
       response.status(500).json({ error }) 
+    })
+})
+
+app.get('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params
+
+  db('palettes').where("id", id).select()
+    .then(palette => {
+      console.log(palette)
+      response.status(200).json({ palette })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
     })
 })
 
