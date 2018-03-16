@@ -72,48 +72,48 @@ app.delete('/api/v1/palettes/:id', (request, response) => { //endpoint for fetch
   
   db('palettes').where("id", id).del()  //select row from palettes db where id matches id, and call knex method del() to delete that recrod
     .then( deleted => {  // await successful delete
-      if (!deleted) {
-        return response.status(404).json({error: 'no palette to delete'})
+      if (!deleted) { // check to see that record was deleted
+        return response.status(404).json({error: 'no palette to delete'}) // return status 404 with error when no record was found to delete
       }
-      response.status(204).json(deleted)
+      response.status(204).json(deleted)  // return status 204 indicating successfuly deletion of requested  palette
     })
-    .catch( error => { 
-      response.status(500).json({ error })
+    .catch( error => {  // await any errors
+      response.status(500).json({ error }) // handle errors, send error as json with status 500
     })
 })
 
-app.post('/api/v1/:id/palettes', (request, response) => {
-  const { id } = request.params 
-  const { palette, name, projectId } = request.body
+app.post('/api/v1/:id/palettes', (request, response) => {  // endpoint for adding a palette, expects .post verb at the specified url with id for project which serves as the foreign key of the created project 
+  const { id } = request.params  // destructure id from url param
+  const { palette, name, projectId } = request.body // destructure parameters from request body
 
-  for( let requiredParam of ['name', 'projectId', 'palette']) {
+  for( let requiredParam of ['name', 'projectId', 'palette']) { // declare required params to verify that they were passed in request
    
-    if(!request.body[requiredParam]) {
-      return response.status(422)
-        .send({ error: `Expected format: { name: <String>, projectId: <Number>, palette: <Array> }. You're missing a "${requiredParam}" property.` })
+    if(!request.body[requiredParam]) {  //check to see if param is missing
+      return response.status(422) { // send a response status of 422 if one of required params is missing
+        .send({ error: `Expected format: { name: <String>, projectId: <Number>, palette: <Array> }. You're missing a "${requiredParam}" property.` })  //with error message indicating which param is missing
     }
   }
 
-  const colorsWithKeys = palette.reduce( (acc, color, idx) => {
-    let key = `color${idx}`
-    return {...acc, [key]: color.color}
+    const colorsWithKeys = palette.reduce( (acc, color, idx) => {  // this messy function cleans the passed palette colors and formats them with the expected db keys
+      let key = `color${idx}` // declare the expected db key
+      return {...acc, [key]: color.color}  // return the mapped colors
   },{})
 
-  const newPalette = {...colorsWithKeys, name, project_id: projectId}
+    const newPalette = {...colorsWithKeys, name, project_id: projectId} // create palette object expected by db
 
-  db('palettes').insert(newPalette, 'id')
-    .then(dbPalette => {
-       response.status(201).json({ palette, name, id: dbPalette[0], projectId }) 
+    db('palettes').insert(newPalette, 'id') // insert palette object into palettes table and return id
+      .then(dbPalette => {  // await response from db
+        response.status(201).json({ palette, name, id: dbPalette[0], projectId }) // send response with status 201 and json palette object for rendering 
     })
-    .catch(error => {
-      response.status(500).json({ error })
+    .catch(error => {  // await any errors
+      response.status(500).json({ error }) // handle errors, send error as json with status 500
     })
 
 })
 
-app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} running on port ${app.get('port')}`)
+app.listen(app.get('port'), () => { // start the server listening on the port specified above
+  console.log(`${app.locals.title} running on port ${app.get('port')}`)  // console log successful start of server
 })
 
 
-module.exports = app
+module.exports = app // export server app
