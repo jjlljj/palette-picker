@@ -91,6 +91,10 @@ button:hover {
   width: 240px;
 }
 
+.new-palette:active {
+  border: 2px solid #0295e2;
+}
+
 .save-palette-form,
 .save-project-form {
   display: flex; 
@@ -107,17 +111,22 @@ input {
 }
 
 .select-wrap {
+  align-items: center;
   background: #f2f2f2;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
   padding-left: 20px;
   padding-right: 10px;
+  width: 140px;
 }
 
 .project-select {
   border: none;
   background: transparent;
-  width: 130px;
+  height: 36px;
+  width: 126px;
   -webkit-border-radius: 0px;
   -webkit-border-top-left-radius: 20px;
   -webkit-border-bottom-left-radius: 20px;
@@ -136,6 +145,14 @@ input {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   width: 160px;
+}
+
+.palette-submit:active,
+.palette-name-input:focus,
+.select-wrap:hover,
+.project-input:focus,
+.project-submit:active {
+  border: 2px solid #0295e2;
 }
 
 .projects-section {
