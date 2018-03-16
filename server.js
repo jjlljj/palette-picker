@@ -58,6 +58,9 @@ app.get('/api/v1/palettes/:id', (request, response) => {
 
   db('palettes').where("id", id).select()
     .then(palette => {
+      if (!palette[0]) {
+        return response.status(404).json({error: 'could not find palette'})
+      }
       response.status(200).json({ palette })
     })
     .catch(error => {
@@ -67,10 +70,13 @@ app.get('/api/v1/palettes/:id', (request, response) => {
 
 app.delete('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params
-
+  
   db('palettes').where("id", id).del()
     .then( deleted => {
-      response.status(204)
+      if (!deleted) {
+        return response.status(404).json({error: 'no palette to delete'})
+      }
+      response.status(204).json(deleted)
     })
     .catch( error => { 
       response.status(500).json({ error })
