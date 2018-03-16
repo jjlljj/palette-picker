@@ -15,7 +15,6 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/v1/projects', (request, response) => {
-  const { projects } = app.locals
   
   db('projects').select()
     .then(projects => {
