@@ -179,15 +179,67 @@ describe('API Routes', () => {
   describe('DELETE /api/v1/palettes/:id', () => {
     it('should delete the palette as expected', () => {
       return chai.request(server)
-        .delete('/api/v1/palettes/1')
+        .delete('/api/v1/palettes/2')
         .then(response => {
-          response.should.have.status(200)
+          response.should.have.status(204)
+        })
+        .catch( error => {
+          throw error
         })
     })
 
+    it('should return 404 if there is no record to delete', () => {
+
+      return chai.request(server)
+        .delete('/api/v1/palettes/9')
+        .then(response => {
+          response.should.have.status(404)
+          response.body.should.be.a('object')
+          response.body.error.should.equal('no palette to delete')
+        })
+        .catch( error => {
+          throw error
+        })
+    })
+    
   })
 
   describe('POST /api/v1/:id/palettes', () => {
+    it('should add the project palette to the db', () => {
+      return chai.request(server)
+        .post('/api/v1/1/palettes')
+        .send({ 
+          name: "cool palette",
+          projectId: 1,
+          palette: [
+            { color: "f2f4f6" },
+            { color: "blue" },
+            { color: "666666" },
+            { color: "6ba3c6" },
+            { color: "d6df72" }
+          ]
+        })
+        .then(response => {
+          
+          response.should.have.status(201)
+          response.should.be.json
+          response.should.be.a('object')
+          response.body.palette.should.be.a('array')
+          response.body.should.have.property('id')
+          response.body.id.should.equal(3)
+          response.body.should.have.property('name')
+          response.body.name.should.equal('cool palette')
+          response.body.should.have.property('palette')
+          response.body.palette.should.be.a('array')
+
+        })
+        .catch( error => {
+          throw error
+        })
+
+
+
+    })
 
   })
 
