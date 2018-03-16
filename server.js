@@ -52,26 +52,26 @@ app.get('/api/v1/palettes', (request, response) => { // endpoint for fetching al
     })
 })
 
-app.get('/api/v1/palettes/:id', (request, response) => { // endpoint for fetch a palette based on the palette id, expects .get verb at the specified url, where id is dynamic within the endpoint 
+app.get('/api/v1/palettes/:id', (request, response) => { // endpoint for getting a palette based on the palette id, expects .get verb at the specified url, where id is dynamic within the endpoint 
   const { id } = request.params  // destructure id from request params (url)
 
-  db('palettes').where("id", id).select()
-    .then(palette => {
-      if (!palette[0]) {
-        return response.status(404).json({error: 'could not find palette'})
+  db('palettes').where("id", id).select()  // select row from palettes db where id matches id passed in url,  using the knex method .select
+    .then(palette => {  // await the db, then arrow function to do something with db response
+      if (!palette[0]) {  // check that palette with requested id was retrieved from db 
+        return response.status(404).json({error: 'could not find palette'})  // send error message with status 404 for palette that wasn't found
       }
-      response.status(200).json({ palette })
+      response.status(200).json({ palette }) //ends retrieved db data as response with status 200
     })
-    .catch(error => {
-      response.status(500).json({ error })
+    .catch(error => {  // await any errors
+      response.status(500).json({ error })  // handle any errors, send error as json with status 500 
     })
 })
 
-app.delete('/api/v1/palettes/:id', (request, response) => {
-  const { id } = request.params
+app.delete('/api/v1/palettes/:id', (request, response) => { //endpoint for fetch a palette based on the palette id, expects .delete verb at the specified url, where id is dynamic within the endpoint 
+  const { id } = request.params  // destructure id from url
   
-  db('palettes').where("id", id).del()
-    .then( deleted => {
+  db('palettes').where("id", id).del()  //select row from palettes db where id matches id, and call knex method del() to delete that recrod
+    .then( deleted => {  // await successful delete
       if (!deleted) {
         return response.status(404).json({error: 'no palette to delete'})
       }
