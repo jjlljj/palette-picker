@@ -173,6 +173,17 @@ describe('API Routes', () => {
         })
     })
 
+    it('should return 404 if the palette is not found', () => {
+      return chai.request(server)
+        .get('/api/v1/palettes/99')
+        .then(response => {
+          response.should.have.status(404)
+        })
+        .catch( error => {
+          throw error
+        })
+    })
+
   })
 
 
@@ -236,9 +247,21 @@ describe('API Routes', () => {
         .catch( error => {
           throw error
         })
+    })
 
-
-
+    it('should return 422 if missing expected params', () => {
+      return chai.request(server)
+        .post('/api/v1/2/palettes')
+        .send({ 
+          name: "cool palette",
+          projectId: 1
+        })
+        .then(response => {
+          response.should.have.status(422)
+        })
+        .catch( error => {
+          throw error
+        })
     })
 
   })
