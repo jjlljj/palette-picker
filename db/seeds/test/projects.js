@@ -28,9 +28,9 @@ exports.seed = function(knex, Promise) {
           }
         ], 'id')
       })
-      .then(() => console.log('Seeding complete!'))
-      .catch(error => console.log(`Error seeding data: ${error}`))
+      .then(() => {} )
+      .catch(error => {})
     ])
   })
-  .catch(error => console.log(`Error seeding data: ${error}`));
+  .catch(error => {});
 };
