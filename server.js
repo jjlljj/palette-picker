@@ -8,7 +8,7 @@ const db = require('knex')(configuration)
 
 const httpsRedirect = (request, response, next) => {
   if(request.protocol !== "https://"  && environment === 'production') {
-    response.redirect("https://" + request.headers.host + "/" + request.path);
+    response.redirect("https://" + request.headers.host + request.path);
   }
   next()
 }
