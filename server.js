@@ -7,9 +7,8 @@ const configuration = require('./knexfile')[environment]
 const db = require('knex')(configuration)
 
 const httpsRedirect = (request, response, next) => {
-  console.log(request.protocol)
   if(req.headers['x-forwarded-proto'] !== 'https' ) {
-    response.redirect("https://" + request.headers.host + request.path);
+    response.redirect("https://" + request.headers.host + request.url);
   }
   next()
 }
@@ -18,9 +17,8 @@ const httpsRedirect = (request, response, next) => {
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Palette Picker'
 app.use(bodyParser.json())
-app.use(express.static('public'))
 if (environment === 'production') { app.use(httpsRedirect) }
-
+app.use(express.static('public'))
 
 app.get('/', (request, response) => {
 })
