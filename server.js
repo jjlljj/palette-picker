@@ -7,7 +7,9 @@ const configuration = require('./knexfile')[environment]
 const db = require('knex')(configuration)
   
 const httpsRedirect = (request, response, next) => {
-  response.redirect("https://" + request.headers.host + request.path);
+  if (request.headers.protocol === "http://"){
+    response.redirect("https://" + request.headers.host + request.path);
+  }
   next()
 }
 
