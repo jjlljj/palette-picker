@@ -5,14 +5,20 @@ const bodyParser = require('body-parser')
 const environment = process.env.NODE_ENV || 'development'
 const configuration = require('./knexfile')[environment]
 const db = require('knex')(configuration)
+  
+const httpsRedirect = (request, response, next) => {
+  response.redirect("https://" + request.headers.host + request.path);
+  next()
+}
 
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Palette Picker'
 app.use(bodyParser.json())
+app.use(httpsRedirect)
 app.use(express.static('public'))
 
+
 app.get('/', (request, response) => {
-  response.redirect("https://" + request.headers.host + "/" + request.path);
 })
 
 app.get('/api/v1/projects', (request, response) => {
