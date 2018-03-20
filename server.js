@@ -12,6 +12,7 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.get('/', (request, response) => {
+  response.redirect("https://" + request.headers.host + "/" + request.path);
 })
 
 app.get('/api/v1/projects', (request, response) => {
