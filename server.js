@@ -16,8 +16,8 @@ const httpsRedirect = (request, response, next) => {
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Palette Picker'
 app.use(bodyParser.json())
-app.use(httpsRedirect)
 app.use(express.static('public'))
+app.use(httpsRedirect)
 
 
 app.get('/', (request, response) => {
