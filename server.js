@@ -18,7 +18,7 @@ app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Palette Picker'
 app.use(bodyParser.json())
 app.use(express.static('public'))
-if (environment === production) { app.use(httpsRedirect) }
+if (environment === 'production') { app.use(httpsRedirect) }
 
 
 app.get('/', (request, response) => {
