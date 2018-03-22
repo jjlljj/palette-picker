@@ -3,3 +3,5 @@ node_js:
   - node
 services:
   - postgresql
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS palette_picker_test;'
