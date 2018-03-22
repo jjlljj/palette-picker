@@ -4,4 +4,7 @@ node_js:
 services:
   - postgresql
 before_install:
-  - psql -e 'CREATE DATABASE IF NOT EXISTS palette_picker_test;'
+  - psql -c 'create database palette_picker_test;' -U postgres
+test:
+  adapter: postgresql
+  database: palette_picker_test
