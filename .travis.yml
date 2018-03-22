@@ -4,4 +4,4 @@ node_js:
 services:
   - postgresql
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS palette_picker_test;'
+  - psql -e 'CREATE DATABASE IF NOT EXISTS palette_picker_test;'
