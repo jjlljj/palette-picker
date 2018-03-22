@@ -5,6 +5,3 @@ services:
   - postgresql
 before_install:
   - psql -c 'create database palette_picker_test;' -U postgres
-test:
-  adapter: postgresql
-  database: palette_picker_test
